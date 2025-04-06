@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     Promise.all(
       deviceTokens.map((token) =>
-        fetch("http://localhost:3000/send-notification", {
+        fetch("/api/send-notification", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     toastContainer.appendChild(sendingToast);
 
-    fetch("http://localhost:3000/send-notification", {
+    fetch("/api/send-notification", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

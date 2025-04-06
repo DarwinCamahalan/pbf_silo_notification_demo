@@ -1,0 +1,9 @@
+{
+  "name": "pbf-silo-notification-api",
+  "version": "1.0.0",
+  "description": "API for PBF Silo Notifications",
+  "main": "send-notification.js",
+  "dependencies": {
+    "firebase-admin": "^11.0.0"
+  }
+}
