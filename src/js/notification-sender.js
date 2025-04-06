@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // TESTING: Use hardcoded token instead of finding one on the page
     const testToken =
-      "cZZubPRUTbmzYtWjrx2jsA:APA91bFB0Vnx1meFofXXO0YNcnVCQBis-NjTxJdZsYlVRgNq9p5-kz3NaFxYj5XuTALkWTXmfHhw0osYCM7vvTO2eVBInCCx4TOuLxRFgTyEsbynhx55Uck";
+      "dUG2lRV_T-KRQLdWoV9lSk:APA91bGkY0xDa7JhObPGin5iCItumaD0MOoM2f9n0gwwEmXs-Xim7Yjw19myr8VZVjvMwUEVq70Ok0JASXZU60aMnGtKWgjMHLPfvp7Q-k_b0YP7FbE3o3M";
     sendRealNotification(testToken, title, body);
   });
 
