@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PBF Silo Notification Demo</title>
+    <!-- Fix the path to tailwind CSS -->
+    <link href="./css/styles.css" rel="stylesheet" />
+    <!-- Use the latest Firebase version -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/notification-sender.js"></script>
+  </head>
+  <body
+    class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4"
+  >
+    <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
+      <h1 class="text-3xl font-bold mb-4 text-blue-600">
+        PBF Silo Notification Demo
+      </h1>
+      <p class="text-lg mb-6">Send push notifications to the Flutter app</p>
+
+      <div class="mb-4">
+        <input
+          type="text"
+          id="notificationTitle"
+          placeholder="Notification Title"
+          class="w-full p-2 border border-gray-300 rounded mb-2"
+          value="PBF Silo Notification"
+        />
+        <textarea
+          id="notificationBody"
+          placeholder="Notification Body"
+          class="w-full p-2 border border-gray-300 rounded"
+          rows="3"
+        >
+This is a test notification from the web app!</textarea
+        >
+      </div>
+
+      <button
+        id="sendNotification"
+        class="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+      >
+        Send Notification
+      </button>
+
+      <div id="status" class="mt-4 text-sm"></div>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-600 max-w-md">
+      <p class="font-semibold">FCM Token:</p>
+      <p
+        class="overflow-ellipsis overflow-hidden"
+        style="word-break: break-all"
+      >
+        cl8sndptTNuoCDrKGtyyxd:APA91bE3muHn2qyXBVNYCURcDbkvChZf_OrS0OC26rCzNnWTBoVkibAi6WH0ESGxe7Esnxy9wI94dude_fVrG3nUgCGFpcX2jUFLNkbsfKyceqoBrr8sMbc
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "pbf_silo_notification_demo",
+  "version": "1.0.0",
+  "description": "A demo project for sending push notifications to a Flutter app using Firebase.",
+  "main": "src/index.html",
+  "scripts": {
+    "build": "tailwindcss build public/css/tailwind.css -o public/css/tailwind.css",
+    "start": "live-server src"
+  },
+  "dependencies": {
+    "firebase": "^9.0.0",
+    "tailwindcss": "^2.0.0"
+  },
+  "devDependencies": {
+    "postcss": "^8.0.0",
+    "autoprefixer": "^10.0.0",
+    "live-server": "^1.2.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

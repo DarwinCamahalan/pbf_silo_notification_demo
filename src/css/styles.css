@@ -1,0 +1,30 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9fafb; /* Light gray background */
+    color: #374151; /* Dark gray text */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600; /* Semi-bold headings */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.button {
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded; /* Tailwind button styles */
+}
+
+.notification {
+    @apply bg-green-100 border-l-4 border-green-500 text-green-700 p-4; /* Notification styles */
+    margin: 10px 0;
+}
+
+.hidden {
+    display: none; /* Utility class for hiding elements */
+}
