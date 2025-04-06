@@ -5,16 +5,20 @@
   "main": "src/index.html",
   "scripts": {
     "build": "tailwindcss build public/css/tailwind.css -o public/css/tailwind.css",
-    "start": "live-server src"
+    "start": "live-server src",
+    "server": "cd server && npm run start",
+    "dev": "concurrently \"npm run start\" \"npm run server\""
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "firebase": "^9.0.0",
     "tailwindcss": "^2.0.0"
   },
   "devDependencies": {
-    "postcss": "^8.0.0",
     "autoprefixer": "^10.0.0",
-    "live-server": "^1.2.1"
+    "concurrently": "^8.2.0",
+    "live-server": "^1.2.1",
+    "postcss": "^8.0.0"
   },
   "keywords": [],
   "author": "",

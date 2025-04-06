@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
@@ -8,12 +9,25 @@ const app = express();
 app.use(cors()); // Enable CORS for browser requests
 app.use(bodyParser.json()); // Parse JSON request bodies
 
-// Initialize Firebase Admin SDK with your service account
-// Download service account key from Firebase Console > Project Settings > Service Accounts
-const serviceAccount = require("./serviceAccountKey.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// Use environment variables for Firebase initialization
+let firebaseCredentials;
+
+try {
+  firebaseCredentials = {
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+  };
+
+  admin.initializeApp({
+    credential: admin.credential.cert(firebaseCredentials),
+  });
+
+  console.log("Firebase initialized with environment variables");
+} catch (error) {
+  console.error("Error initializing Firebase:", error);
+  process.exit(1);
+}
 
 // API endpoint to send notifications
 app.post("/send-notification", async (req, res) => {
