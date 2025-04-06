@@ -50,22 +50,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Reset all buttons to inactive style
     document.getElementById("filterToday").className =
-      "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none";
+      "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-300 focus:outline-none";
     document.getElementById("filterWeek").className =
-      "px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none";
+      "px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-300 focus:outline-none";
     document.getElementById("filterAll").className =
-      "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none";
+      "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-300 focus:outline-none";
 
     // Set active button style
     if (filter === "today") {
       document.getElementById("filterToday").className =
-        "px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-600 rounded-l-lg hover:bg-blue-600 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none";
+        "px-4 py-2 text-sm font-medium text-white bg-green-500 border border-green-600 rounded-l-lg hover:bg-green-600 focus:z-10 focus:ring-2 focus:ring-green-300 focus:outline-none";
     } else if (filter === "week") {
       document.getElementById("filterWeek").className =
-        "px-4 py-2 text-sm font-medium text-white bg-blue-500 border-t border-b border-blue-600 hover:bg-blue-600 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none";
+        "px-4 py-2 text-sm font-medium text-white bg-green-500 border-t border-b border-green-600 hover:bg-green-600 focus:z-10 focus:ring-2 focus:ring-green-300 focus:outline-none";
     } else {
       document.getElementById("filterAll").className =
-        "px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-600 rounded-r-lg hover:bg-blue-600 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none";
+        "px-4 py-2 text-sm font-medium text-white bg-green-500 border border-green-600 rounded-r-lg hover:bg-green-600 focus:z-10 focus:ring-2 focus:ring-green-300 focus:outline-none";
     }
   }
 
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 value="${deviceInfo.fcmToken}" 
                 class="mr-2 device-radio"
               >
-              <label for="device-${deviceId}" class="text-sm font-medium text-blue-600">Select</label>
+              <label for="device-${deviceId}" class="text-sm font-medium text-green-600">Select</label>
             </div>
           </div>
           <div class="mt-2">
