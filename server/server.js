@@ -9,21 +9,15 @@ const app = express();
 app.use(cors()); // Enable CORS for browser requests
 app.use(bodyParser.json()); // Parse JSON request bodies
 
-// Use environment variables for Firebase initialization
-let firebaseCredentials;
+// Use service account file for Firebase initialization
+const serviceAccount = require("./serviceAccountKey.json");
 
 try {
-  firebaseCredentials = {
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-  };
-
   admin.initializeApp({
-    credential: admin.credential.cert(firebaseCredentials),
+    credential: admin.credential.cert(serviceAccount),
   });
 
-  console.log("Firebase initialized with environment variables");
+  console.log("Firebase initialized with service account file");
 } catch (error) {
   console.error("Error initializing Firebase:", error);
   process.exit(1);

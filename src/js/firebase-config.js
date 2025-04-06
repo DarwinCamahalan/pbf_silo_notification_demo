@@ -1,7 +1,7 @@
 // filepath: /pbf_silo_notification_demo/src/js/firebase-config.js
 // Firebase configuration file
-import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging";
+import firebase from "firebase/compat/app";
+import "firebase/compat/messaging";
 
 // Initialize Firebase with your web configuration
 const firebaseConfig = {

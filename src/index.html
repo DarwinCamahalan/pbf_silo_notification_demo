@@ -12,51 +12,101 @@
     <script src="js/firebase-config.js"></script>
     <script src="js/notification-sender.js"></script>
   </head>
-  <body
-    class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4"
-  >
-    <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
-      <h1 class="text-3xl font-bold mb-4 text-blue-600">
+  <body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+      <h1 class="text-2xl font-bold text-center mb-6">
         PBF Silo Notification Demo
       </h1>
-      <p class="text-lg mb-6">Send push notifications to the Flutter app</p>
 
-      <div class="mb-4">
-        <input
-          type="text"
-          id="notificationTitle"
-          placeholder="Notification Title"
-          class="w-full p-2 border border-gray-300 rounded mb-2"
-          value="PBF Silo Notification"
-        />
-        <textarea
-          id="notificationBody"
-          placeholder="Notification Body"
-          class="w-full p-2 border border-gray-300 rounded"
-          rows="3"
-        >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Column: Phone Information List -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h2 class="text-xl font-semibold mb-4">Registered Devices</h2>
+
+          <div class="space-y-4">
+            <!-- Phone 1 -->
+            <div class="border border-gray-200 rounded-md p-4">
+              <h3 class="font-bold text-lg">iPhone 13 Pro</h3>
+              <p class="text-sm text-gray-600 mt-1">Logged in: April 5, 2025</p>
+              <div class="mt-2">
+                <p class="text-xs text-gray-500 font-semibold">FCM Token:</p>
+                <p class="text-xs text-gray-500 break-all">
+                  fED4kT7yR3mPL8sZaX2vBn:APA91bHxY6dWzJqS8cN5tGrV3fKpLm9oEjC7bQ2yDnTrXvZ4kP8sM6uN5aL2tR3vY7wX8pQ9kB6mC3dF2gH4jK5nP
+                </p>
+              </div>
+            </div>
+
+            <!-- Phone 2 -->
+            <div class="border border-gray-200 rounded-md p-4">
+              <h3 class="font-bold text-lg">Samsung Galaxy S22</h3>
+              <p class="text-sm text-gray-600 mt-1">Logged in: April 2, 2025</p>
+              <div class="mt-2">
+                <p class="text-xs text-gray-500 font-semibold">FCM Token:</p>
+                <p class="text-xs text-gray-500 break-all">
+                  aB7cD9eF3gH5iJ1kL8mN:APA91bP2qR4sT6uV8wX0yZ2aC4bD6eF8gH0iJ2kL4mN6pQ8rS0tU2vV4wX6yZ8aC0bD2eF4gH6iJ8kL0mN2pQ
+                </p>
+              </div>
+            </div>
+
+            <!-- Phone 3 -->
+            <div class="border border-gray-200 rounded-md p-4">
+              <h3 class="font-bold text-lg">Google Pixel 7</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Logged in: March 28, 2025
+              </p>
+              <div class="mt-2">
+                <p class="text-xs text-gray-500 font-semibold">FCM Token:</p>
+                <p class="text-xs text-gray-500 break-all">
+                  cl8sndptTNuoCDrKGtyyxd:APA91bE3muHn2qyXBVNYCURcDbkvChZf_OrS0OC26rCzNnWTBoVkibAi6WH0ESGxe7Esnxy9wI94dude_fVrG3nUgCGFpcX2jUFLNkbsfKyceqoBrr8sMbc
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Notification Form -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h2 class="text-xl font-semibold mb-4">Send Notification</h2>
+
+          <div class="mb-4">
+            <label
+              for="notificationTitle"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Notification Title</label
+            >
+            <input
+              type="text"
+              id="notificationTitle"
+              placeholder="Notification Title"
+              class="w-full p-2 border border-gray-300 rounded mb-3"
+              value="PBF Silo Notification"
+            />
+
+            <label
+              for="notificationBody"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Notification Body</label
+            >
+            <textarea
+              id="notificationBody"
+              placeholder="Notification Body"
+              class="w-full p-2 border border-gray-300 rounded"
+              rows="4"
+            >
 This is a test notification from the web app!</textarea
-        >
+            >
+          </div>
+
+          <button
+            id="sendNotification"
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+          >
+            Send Notification
+          </button>
+
+          <div id="status" class="mt-4 text-sm"></div>
+        </div>
       </div>
-
-      <button
-        id="sendNotification"
-        class="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-      >
-        Send Notification
-      </button>
-
-      <div id="status" class="mt-4 text-sm"></div>
-    </div>
-
-    <div class="mt-4 text-sm text-gray-600 max-w-md">
-      <p class="font-semibold">FCM Token:</p>
-      <p
-        class="overflow-ellipsis overflow-hidden"
-        style="word-break: break-all"
-      >
-        cl8sndptTNuoCDrKGtyyxd:APA91bE3muHn2qyXBVNYCURcDbkvChZf_OrS0OC26rCzNnWTBoVkibAi6WH0ESGxe7Esnxy9wI94dude_fVrG3nUgCGFpcX2jUFLNkbsfKyceqoBrr8sMbc
-      </p>
     </div>
   </body>
 </html>

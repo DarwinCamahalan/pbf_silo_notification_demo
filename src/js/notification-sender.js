@@ -10,23 +10,22 @@ document.addEventListener("DOMContentLoaded", function () {
   sendButton.addEventListener("click", function () {
     console.log("Send notification button clicked");
 
+    // Status handling
+    if (statusDiv) {
+      statusDiv.textContent = "Sending notification...";
+    } else {
+      console.error("Status element not found");
+    }
+
     // Get values from the form
     const title = titleInput.value || "PBF Silo Notification";
     const body =
       bodyInput.value || "This is a test notification from the web app!";
 
-    // Get the FCM token from the page
-    const fcmTokenElement = document.querySelector(
-      "p[style='word-break: break-all']"
-    );
-    const fcmToken = fcmTokenElement.textContent.trim();
-
-    // Update status
-    statusDiv.innerHTML =
-      "<p class='text-blue-500'>Sending notification...</p>";
-
-    // Actually send the notification through the server
-    sendRealNotification(fcmToken, title, body);
+    // TESTING: Use hardcoded token instead of finding one on the page
+    const testToken =
+      "cZZubPRUTbmzYtWjrx2jsA:APA91bFB0Vnx1meFofXXO0YNcnVCQBis-NjTxJdZsYlVRgNq9p5-kz3NaFxYj5XuTALkWTXmfHhw0osYCM7vvTO2eVBInCCx4TOuLxRFgTyEsbynhx55Uck";
+    sendRealNotification(testToken, title, body);
   });
 
   // Send a real notification via our backend server
@@ -51,7 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
           statusDiv.innerHTML =
             "<p class='text-green-500'>✓ Notification sent successfully!</p>";
         } else {
-          statusDiv.innerHTML = `<p class='text-red-500'>✗ Error: ${data.error}</p>`;
+          statusDiv.innerHTML = `<p class='text-red-500'>✗ Error: ${
+            data.error || "Unknown error"
+          }</p>`;
         }
       })
       .catch((error) => {
