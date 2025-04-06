@@ -112,13 +112,13 @@ function addCustomSliderStyles() {
     input[type=range]#siloSlider::-webkit-slider-runnable-track {
       height: 8px !important;
       border-radius: 4px !important;
-      background: linear-gradient(to top, #22c55e, #facc15, #dc2626) !important;
+      background: linear-gradient(to top, #dc2626, #facc15, #22c55e) !important;
     }
     
     input[type=range]#siloSlider::-moz-range-track {
       height: 8px !important;
       border-radius: 4px !important;
-      background: linear-gradient(to top, #22c55e, #facc15, #dc2626) !important;
+      background: linear-gradient(to top, #dc2626, #facc15, #22c55e) !important;
     }
     
     /* Override any browser default styles */
