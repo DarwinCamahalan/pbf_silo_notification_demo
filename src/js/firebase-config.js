@@ -1,9 +1,7 @@
 // filepath: /pbf_silo_notification_demo/src/js/firebase-config.js
 // Firebase configuration file
-import firebase from "firebase/compat/app";
-import "firebase/compat/messaging";
 
-// Initialize Firebase with your web configuration
+// Firebase configuration file
 const firebaseConfig = {
   apiKey: "AIzaSyAuqJcVZDCSc66gY_rWytg__4k4KUEfXR8",
   authDomain: "pbf-silo-app.firebaseapp.com",
@@ -11,9 +9,11 @@ const firebaseConfig = {
   storageBucket: "pbf-silo-app.firebasestorage.app",
   messagingSenderId: "544064554248",
   appId: "1:544064554248:web:546b5779d549ce72f4d8bd",
+  databaseURL:
+    "https://pbf-silo-app-default-rtdb.asia-southeast1.firebasedatabase.app",
 };
 
-// Initialize Firebase
+// Initialize Firebase using the global firebase object from the CDN
 firebase.initializeApp(firebaseConfig);
 
 console.log("Firebase initialized successfully");

@@ -9,7 +9,10 @@
     <!-- Use the latest Firebase version -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <!-- Change this to a regular script, not a module -->
     <script src="js/firebase-config.js"></script>
+    <script src="js/device-list.js"></script>
     <script src="js/notification-sender.js"></script>
   </head>
   <body class="bg-gray-100 p-6">
@@ -23,43 +26,10 @@
         <div class="bg-white rounded-lg shadow-lg p-6">
           <h2 class="text-xl font-semibold mb-4">Registered Devices</h2>
 
-          <div class="space-y-4">
-            <!-- Phone 1 -->
+          <div id="deviceList" class="space-y-4">
+            <!-- Dynamic content will be inserted here -->
             <div class="border border-gray-200 rounded-md p-4">
-              <h3 class="font-bold text-lg">iPhone 13 Pro</h3>
-              <p class="text-sm text-gray-600 mt-1">Logged in: April 5, 2025</p>
-              <div class="mt-2">
-                <p class="text-xs text-gray-500 font-semibold">FCM Token:</p>
-                <p class="text-xs text-gray-500 break-all">
-                  fED4kT7yR3mPL8sZaX2vBn:APA91bHxY6dWzJqS8cN5tGrV3fKpLm9oEjC7bQ2yDnTrXvZ4kP8sM6uN5aL2tR3vY7wX8pQ9kB6mC3dF2gH4jK5nP
-                </p>
-              </div>
-            </div>
-
-            <!-- Phone 2 -->
-            <div class="border border-gray-200 rounded-md p-4">
-              <h3 class="font-bold text-lg">Samsung Galaxy S22</h3>
-              <p class="text-sm text-gray-600 mt-1">Logged in: April 2, 2025</p>
-              <div class="mt-2">
-                <p class="text-xs text-gray-500 font-semibold">FCM Token:</p>
-                <p class="text-xs text-gray-500 break-all">
-                  aB7cD9eF3gH5iJ1kL8mN:APA91bP2qR4sT6uV8wX0yZ2aC4bD6eF8gH0iJ2kL4mN6pQ8rS0tU2vV4wX6yZ8aC0bD2eF4gH6iJ8kL0mN2pQ
-                </p>
-              </div>
-            </div>
-
-            <!-- Phone 3 -->
-            <div class="border border-gray-200 rounded-md p-4">
-              <h3 class="font-bold text-lg">Google Pixel 7</h3>
-              <p class="text-sm text-gray-600 mt-1">
-                Logged in: March 28, 2025
-              </p>
-              <div class="mt-2">
-                <p class="text-xs text-gray-500 font-semibold">FCM Token:</p>
-                <p class="text-xs text-gray-500 break-all">
-                  cl8sndptTNuoCDrKGtyyxd:APA91bE3muHn2qyXBVNYCURcDbkvChZf_OrS0OC26rCzNnWTBoVkibAi6WH0ESGxe7Esnxy9wI94dude_fVrG3nUgCGFpcX2jUFLNkbsfKyceqoBrr8sMbc
-                </p>
-              </div>
+              <p class="text-gray-500">Loading devices...</p>
             </div>
           </div>
         </div>

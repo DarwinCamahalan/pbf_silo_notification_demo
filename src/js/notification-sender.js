@@ -22,10 +22,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const body =
       bodyInput.value || "This is a test notification from the web app!";
 
-    // TESTING: Use hardcoded token instead of finding one on the page
-    const testToken =
-      "dUG2lRV_T-KRQLdWoV9lSk:APA91bGkY0xDa7JhObPGin5iCItumaD0MOoM2f9n0gwwEmXs-Xim7Yjw19myr8VZVjvMwUEVq70Ok0JASXZU60aMnGtKWgjMHLPfvp7Q-k_b0YP7FbE3o3M";
-    sendRealNotification(testToken, title, body);
+    // Get the selected device token
+    const selectedDevice = document.querySelector(
+      'input[name="selectedDevice"]:checked'
+    );
+
+    if (selectedDevice && selectedDevice.value) {
+      // Use the selected device's token
+      sendRealNotification(selectedDevice.value, title, body);
+    } else {
+      // Fallback to hardcoded token if no device is selected
+      const fallbackToken =
+        "dp9Jw8a_TxK2hoZrj6nB92:APA91bGBv33U3Oez6_aOfse9Lr-yrXVXwuoKvo4RDpcPmCLJIdJgppaYWcfwQU5Py7z9COYQAQxnxzZG3MIISuO81VJTBa6ePIRHvInjuGjPCMUmXg3GcI8";
+      statusDiv.innerHTML =
+        "<p class='text-yellow-500'>⚠️ No device selected, using fallback token</p>";
+      sendRealNotification(fallbackToken, title, body);
+    }
   });
 
   // Send a real notification via our backend server
