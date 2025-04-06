@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const titleInput = document.getElementById("notificationTitle");
   const bodyInput = document.getElementById("notificationBody");
   const statusDiv = document.getElementById("status");
+  const selectAllCheckbox = document.getElementById("selectAllDevices");
 
   // Add a click event listener to the button
   sendButton.addEventListener("click", function () {
@@ -22,22 +23,118 @@ document.addEventListener("DOMContentLoaded", function () {
     const body =
       bodyInput.value || "This is a test notification from the web app!";
 
-    // Get the selected device token
-    const selectedDevice = document.querySelector(
-      'input[name="selectedDevice"]:checked'
+    // Check if "Send to all" is selected
+    if (selectAllCheckbox.checked) {
+      sendToAllDevices(title, body);
+    } else {
+      // Get the selected device token
+      const selectedDevice = document.querySelector(
+        'input[name="selectedDevice"]:checked'
+      );
+
+      if (selectedDevice && selectedDevice.value) {
+        // Use the selected device's token
+        sendRealNotification(selectedDevice.value, title, body);
+      } else {
+        // No device selected and not sending to all
+        statusDiv.innerHTML =
+          "<p class='text-yellow-500'>⚠️ Please select a device or check \"Send to all devices\"</p>";
+      }
+    }
+  });
+
+  // Function to send notification to all devices
+  function sendToAllDevices(title, body) {
+    // Get all device tokens
+    const allDeviceRadios = document.querySelectorAll(".device-radio");
+    const deviceTokens = Array.from(allDeviceRadios).map(
+      (radio) => radio.value
     );
 
-    if (selectedDevice && selectedDevice.value) {
-      // Use the selected device's token
-      sendRealNotification(selectedDevice.value, title, body);
-    } else {
-      // Fallback to hardcoded token if no device is selected
-      const fallbackToken =
-        "dp9Jw8a_TxK2hoZrj6nB92:APA91bGBv33U3Oez6_aOfse9Lr-yrXVXwuoKvo4RDpcPmCLJIdJgppaYWcfwQU5Py7z9COYQAQxnxzZG3MIISuO81VJTBa6ePIRHvInjuGjPCMUmXg3GcI8";
+    if (deviceTokens.length === 0) {
       statusDiv.innerHTML =
-        "<p class='text-yellow-500'>⚠️ No device selected, using fallback token</p>";
-      sendRealNotification(fallbackToken, title, body);
+        "<p class='text-yellow-500'>⚠️ No devices available to send notifications</p>";
+      return;
     }
+
+    statusDiv.innerHTML = `<p class='text-blue-500'>Sending notifications to ${deviceTokens.length} devices...</p>`;
+
+    // Use Promise.all to send notifications to all devices and track progress
+    let successCount = 0;
+    let failureCount = 0;
+
+    Promise.all(
+      deviceTokens.map((token) =>
+        fetch("http://localhost:3000/send-notification", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token, title, body }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              successCount++;
+            } else {
+              failureCount++;
+            }
+            return data;
+          })
+          .catch((error) => {
+            failureCount++;
+            console.error("Error sending to device:", error);
+            return { success: false, error: error.message };
+          })
+      )
+    ).finally(() => {
+      if (failureCount > 0) {
+        statusDiv.innerHTML = `<p class='text-yellow-500'>✓ Sent to ${successCount} devices, failed for ${failureCount} devices</p>`;
+      } else {
+        statusDiv.innerHTML = `<p class='text-green-500'>✓ Notifications sent successfully to all ${successCount} devices!</p>`;
+      }
+    });
+  }
+
+  // Add event listener to toggle device selection when "Select All" is checked/unchecked
+  selectAllCheckbox.addEventListener("change", function () {
+    const deviceRadios = document.querySelectorAll(".device-radio");
+
+    // If checked, disable all individual selection radio buttons
+    deviceRadios.forEach((radio) => {
+      radio.disabled = this.checked;
+
+      // Update styling for disabled state
+      const deviceCard = radio.closest("#deviceList > div");
+      if (deviceCard) {
+        if (this.checked) {
+          // When select all is checked, highlight all cards
+          deviceCard.classList.remove("border-gray-200");
+          deviceCard.classList.add(
+            "border-green-500",
+            "bg-green-50",
+            "opacity-70"
+          );
+        } else {
+          // When unchecked, restore normal state and only highlight the selected one
+          deviceCard.classList.remove(
+            "border-green-500",
+            "bg-green-50",
+            "opacity-70"
+          );
+          deviceCard.classList.add("border-gray-200");
+
+          // Reselect the first one
+          const firstRadio = document.querySelector(
+            'input[name="selectedDevice"]'
+          );
+          if (firstRadio) {
+            firstRadio.checked = true;
+            firstRadio.dispatchEvent(new Event("change"));
+          }
+        }
+      }
+    });
   });
 
   // Send a real notification via our backend server

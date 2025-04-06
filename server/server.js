@@ -60,6 +60,59 @@ app.post("/send-notification", async (req, res) => {
   }
 });
 
+// Add a new endpoint for batch sending
+app.post("/send-batch-notification", async (req, res) => {
+  try {
+    const { tokens, title, body } = req.body;
+
+    if (!tokens || !tokens.length || !title || !body) {
+      return res.status(400).json({
+        success: false,
+        error: "Missing required parameters: tokens array, title, or body",
+      });
+    }
+
+    // Create a message for each token
+    const messages = tokens.map((token) => ({
+      notification: {
+        title,
+        body,
+      },
+      token,
+    }));
+
+    // Send batch of messages (up to 500 at a time per Firebase limit)
+    const batchResponses = [];
+    for (let i = 0; i < messages.length; i += 500) {
+      const batch = messages.slice(i, i + 500);
+      const response = await admin.messaging().sendAll(batch);
+      batchResponses.push(response);
+    }
+
+    // Combine results
+    const successCount = batchResponses.reduce(
+      (acc, res) => acc + res.successCount,
+      0
+    );
+    const failureCount = batchResponses.reduce(
+      (acc, res) => acc + res.failureCount,
+      0
+    );
+
+    return res.status(200).json({
+      success: true,
+      successCount,
+      failureCount,
+    });
+  } catch (error) {
+    console.error("Error sending batch messages:", error);
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

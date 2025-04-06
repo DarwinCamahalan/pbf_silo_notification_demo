@@ -6,6 +6,8 @@
     <title>PBF Silo Notification Demo</title>
     <!-- Fix the path to tailwind CSS -->
     <link href="./css/styles.css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="public/favicon.png" />
     <!-- Use the latest Firebase version -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
@@ -15,18 +17,47 @@
     <script src="js/device-list.js"></script>
     <script src="js/notification-sender.js"></script>
   </head>
-  <body class="bg-gray-100 p-6">
+  <body class="p-6">
     <div class="container mx-auto">
-      <h1 class="text-2xl font-bold text-center mb-6">
-        PBF Silo Notification Demo
-      </h1>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Left Column: Phone Information List -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-          <h2 class="text-xl font-semibold mb-4">Registered Devices</h2>
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold">Registered Devices</h2>
 
-          <div id="deviceList" class="space-y-4">
+            <div
+              class="inline-flex rounded-md shadow-sm mt-2 sm:mt-2"
+              role="group"
+            >
+              <button
+                type="button"
+                id="filterToday"
+                class="px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-600 rounded-l-lg hover:bg-blue-600 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+              >
+                Today
+              </button>
+              <button
+                type="button"
+                id="filterWeek"
+                class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+              >
+                Last 7 Days
+              </button>
+              <button
+                type="button"
+                id="filterAll"
+                class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+              >
+                All
+              </button>
+            </div>
+          </div>
+
+          <!-- Update the device list container styling to include transition effects -->
+          <div
+            id="deviceList"
+            class="space-y-4 hover:cursor-pointer max-h-[calc(100vh-200px)] overflow-y-auto pr-2"
+          >
             <!-- Dynamic content will be inserted here -->
             <div class="border border-gray-200 rounded-md p-4">
               <p class="text-gray-500">Loading devices...</p>
@@ -35,14 +66,14 @@
         </div>
 
         <!-- Right Column: Notification Form -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="p-6">
           <h2 class="text-xl font-semibold mb-4">Send Notification</h2>
 
           <div class="mb-4">
             <label
               for="notificationTitle"
               class="block text-sm font-medium text-gray-700 mb-1"
-              >Notification Title</label
+              >Message Title</label
             >
             <input
               type="text"
@@ -55,7 +86,7 @@
             <label
               for="notificationBody"
               class="block text-sm font-medium text-gray-700 mb-1"
-              >Notification Body</label
+              >Message Body</label
             >
             <textarea
               id="notificationBody"
@@ -65,6 +96,20 @@
             >
 This is a test notification from the web app!</textarea
             >
+          </div>
+
+          <div class="mb-4 flex items-center">
+            <input
+              type="checkbox"
+              id="selectAllDevices"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label
+              for="selectAllDevices"
+              class="ml-2 block text-sm text-gray-700"
+            >
+              Send to all devices
+            </label>
           </div>
 
           <button
