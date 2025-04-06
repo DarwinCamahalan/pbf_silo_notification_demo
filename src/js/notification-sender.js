@@ -8,6 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const selectAllCheckbox = document.getElementById("selectAllDevices");
   const toastContainer = document.getElementById("toastContainer");
 
+  // Make window.sendNotificationToAll available for the automatic notification feature
+  window.sendNotificationToAll = function (title, body) {
+    sendToAllDevices(title, body);
+  };
+
+  // Make window.sendNotificationToSelected available for the automatic notification feature
+  window.sendNotificationToSelected = function (title, body) {
+    const selectedDevice = document.querySelector(
+      'input[name="selectedDevice"]:checked'
+    );
+    if (selectedDevice && selectedDevice.value) {
+      sendRealNotification(selectedDevice.value, title, body);
+    } else {
+      showToast("No device selected for notification", "error");
+    }
+  };
+
   // Function to show toast notification
   function showToast(message, type = "success") {
     // Create toast element
@@ -25,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
     } else {
       toast.className =
-        "bg-red-500 text-white px-4 py-3 rounded shadow-lg flex items-center";
+        "bg-gray-500 text-white px-4 py-3 rounded shadow-lg flex items-center";
       toast.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
@@ -235,7 +252,9 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         // Remove sending toast
-        toastContainer.removeChild(sendingToast);
+        if (toastContainer.contains(sendingToast)) {
+          toastContainer.removeChild(sendingToast);
+        }
 
         console.error("Error:", error);
         showToast("Error connecting to notification server", "error");

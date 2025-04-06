@@ -57,7 +57,7 @@ function initSiloSlider() {
   const slider = document.getElementById("siloSlider");
 
   // Set initial value to start near bottom
-  slider.value = 0;
+  slider.value = 50;
 
   // Update silo display based on slider value
   updateSiloLevel(slider.value);
