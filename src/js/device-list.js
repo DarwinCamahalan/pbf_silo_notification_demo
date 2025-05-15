@@ -72,8 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to filter devices based on date
   function filterDevices(filter) {
     const deviceElements = document.querySelectorAll("#deviceList > div");
+
+    // Set today to beginning of day (midnight)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    // Create tomorrow date for proper range checking
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -86,7 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const loginTime = new Date(element.dataset.loginTime);
 
       if (filter === "today") {
-        element.style.display = loginTime >= today ? "block" : "none";
+        // Show only if login time is between today midnight and tomorrow midnight
+        element.style.display =
+          loginTime >= today && loginTime < tomorrow ? "block" : "none";
       } else if (filter === "week") {
         element.style.display = loginTime >= oneWeekAgo ? "block" : "none";
       } else {
@@ -96,8 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Show message if no devices match the filter
     const visibleDevices = Array.from(deviceElements).filter(
-      (el) => el.style.display !== "none"
+      (el) => el.style.display !== "none" && el.dataset.loginTime
     );
+
     if (visibleDevices.length === 0) {
       deviceListContainer.innerHTML += `
         <div class="border border-gray-200 rounded-md p-4">
@@ -285,6 +294,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Trigger change event to apply styling
       firstRadio.dispatchEvent(new Event("change"));
     }
+
+    // Apply the default filter after loading devices
+    filterDevices(currentFilter);
   });
 
   // Handle errors
